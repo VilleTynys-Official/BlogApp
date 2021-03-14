@@ -3,7 +3,7 @@ package com.ville.blogapp.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "student")
+@Document(collection = "blogposts")
 public class BlogPost {
 
     @Id //generates an id
@@ -11,12 +11,15 @@ public class BlogPost {
 
     public String blogText;
     public String timeCreated;
+    public String blogTitle;
+
 
     public BlogPost(){}
 
-    public BlogPost(String blogText, String timeCreated) {
+    public BlogPost(String blogText, String timeCreated, String blogTitle) {
         this.blogText = blogText;
         this.timeCreated = timeCreated;
+        this.blogTitle = blogTitle;
     }
 
     public String getBlogText() {
@@ -26,6 +29,8 @@ public class BlogPost {
     public String getTimeCreated() {
         return timeCreated;
     }
+
+    public String getBlogTitle() { return blogTitle; }
 
     @Override
     public String toString() {
