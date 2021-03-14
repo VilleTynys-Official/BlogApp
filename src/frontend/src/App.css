@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color:grey;
+  padding: 20px;
 }
 
 .App-logo {
@@ -36,3 +38,26 @@
     transform: rotate(360deg);
   }
 }
+
+
+.editview-container {
+}
+
+/* .mainview-container {
+
+  width: 200px;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+
+}
+
+.item-container {
+
+  background-color: aquamarine;
+
+}
+
+.item-information-container{
+  justify-self: flex-start ;
+} */
