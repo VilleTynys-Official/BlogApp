@@ -4,12 +4,22 @@ import CurrentPostContext from '../../context/CurrentPostContext';
 import {NavLink} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import '../../App.css';
+
+// styling for material ui component used in TextFields
+const useStyles = makeStyles(()=> ({
+  textbox: {
+      width: '800px',
+  }
+}));
 
 
 //  Collects user input into newBlogPost and sends it to backend when user clicks Save Post.
 
 const EditView = () => {
+  const classes = useStyles();
   const history = useHistory();
   const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
   const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
@@ -26,10 +36,7 @@ const EditView = () => {
   useEffect(() => {
     if(currentPost !== null) {
       setNewBlogPost({...newBlogPost, blogText:currentPost.blogText, blogTitle:currentPost.blogTitle, id:currentPost.id})
-    }}, [])
-
-  console.log('new post is ', newBlogPost);
-  
+    }}, [])  
 
   const onChange = event => setNewBlogPost(
       {...newBlogPost,
@@ -57,7 +64,7 @@ const EditView = () => {
 
 
 
-    // if current is empty send the newBlogPost to backend
+    // if current is empty, send the newBlogPost to backend
     // else send an update request
     const onSubmit = event => {
         event.preventDefault();           
@@ -87,17 +94,28 @@ const EditView = () => {
 
   return (
     <div className='editview-container'>
-        <form onSubmit={onSubmit}>
-            <h2>Title</h2>
-            <input
-                type='text'
+        <form
+          noValidate autoComplete="off"
+          onSubmit={onSubmit}>
+            <h4>Title</h4>
+            <TextField
+                className={classes.textbox}
+                id="filled-multiline-static"
+                multiline
+                variant="outlined"
+                rows={1}
                 name='blogTitle'
                 value={blogTitle}
                 onChange={onChange}
             />
             <br></br>
-            <h2>Text</h2>
-            <input
+            <h4>Text</h4>
+            <TextField
+                className={classes.textbox}
+                id="filled-multiline-static"
+                multiline
+                variant="outlined"
+                rows={10}
                 type='text'
                 name='blogText'
                 value={blogText}
@@ -105,12 +123,12 @@ const EditView = () => {
             />
             <br></br>
             <NavLink to="/">
-                <button onClick={() => setCurrentPost(null)} className='form-button'>Cancel</button>
+                <button onClick={() => setCurrentPost(null)} className='add-button'>Cancel</button>
             </NavLink>
             <input
                 type='submit'
                 value='Save post'
-                className='form-button'>
+                className='add-button'>
             </input>
 
         </form>

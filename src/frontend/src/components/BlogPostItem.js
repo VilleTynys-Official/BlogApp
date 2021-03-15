@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import BlogPostContext from '../context/BlogPostContext';
 import CurrentPostContext from '../context/CurrentPostContext';
+import '../App.css';
 
 function BlogPostItem({blogPost}) {
     const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
@@ -26,9 +27,12 @@ function BlogPostItem({blogPost}) {
                 <p>{blogPost.timeCreated}</p>
             </div>
             <NavLink to="/editview">
-                <button onClick={() =>setCurrentPost(blogPost)}>View</button>
+                <button
+                    className="item-button"
+                    onClick={() =>setCurrentPost(blogPost)}>View</button>
             </NavLink>
-                <button onClick={deleteBlogPost}>Delete</button>
+                <button className="item-button"
+                    onClick={deleteBlogPost}>Delete</button>
         </div>
     )
 }

@@ -3,13 +3,14 @@ import BlogPostContext from '../../context/BlogPostContext';
 import {NavLink} from 'react-router-dom';
 import BlogPostItem from '../BlogPostItem';
 import axios from 'axios';
+import '../../App.css';
 
 
 import CurrentPostContext from '../../context/CurrentPostContext';
 
 const MainView = () => {
   const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
-  const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
+  const {currentPost} = useContext(CurrentPostContext)
 
   const getBlogPosts = async () => {
     try {
@@ -39,7 +40,9 @@ const MainView = () => {
     <h1>Main view</h1>
       <div className='mainview-container'>
         <NavLink to={'/editview'}>
-          <button>Add blog</button>
+          <button
+            className='add-button'
+          >Add new post</button>
         </NavLink>
 
           {blogPosts !==undefined ?
