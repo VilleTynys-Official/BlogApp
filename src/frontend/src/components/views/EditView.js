@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import BlogPostContext from '../../context/BlogPostContext';
 import CurrentPostContext from '../../context/CurrentPostContext';
 import {NavLink} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
@@ -21,7 +20,6 @@ const useStyles = makeStyles(()=> ({
 const EditView = () => {
   const classes = useStyles();
   const history = useHistory();
-  const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
   const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
   const today = new Date()
   const date = today.toLocaleDateString("en-US").toString();
@@ -45,7 +43,6 @@ const EditView = () => {
   const saveBlogPost = async () => {
     try{
         axios.post(`/blogposts/`, newBlogPost)
-        setBlogPosts(blogPosts);
 
     }catch(error) {
         console.error(error);
