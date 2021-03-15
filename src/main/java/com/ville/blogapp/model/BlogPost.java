@@ -32,6 +32,19 @@ public class BlogPost {
 
     public String getBlogTitle() { return blogTitle; }
 
+
+    public void setBlogText(String blogText) {
+        this.blogText = blogText;
+    }
+
+    public void setTimeCreated(String timeCreated) {
+        this.timeCreated = timeCreated;
+    }
+
+    public void setBlogTitle(String blogTitle) {
+        this.blogTitle = blogTitle;
+    }
+
     @Override
     public String toString() {
         return String.format(

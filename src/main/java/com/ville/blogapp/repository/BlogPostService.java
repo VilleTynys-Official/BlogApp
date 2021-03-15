@@ -32,10 +32,6 @@ public class BlogPostService {
             return blogPostRepository.findById(id);
         }
 
-      /*  public void updateBlogPost (String id, BlogPost newBlogPost) {
-            BlogPost blogPost = blogPostRepository.findById(id);
-        }*/
-
         public void deleteBlogPostById ( String id) {
             blogPostRepository.deleteById(id);
         }

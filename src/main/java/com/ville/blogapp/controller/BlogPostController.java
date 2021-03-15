@@ -39,12 +39,6 @@ public class BlogPostController {
         return blogPostService.findBlogPostById(id);
     }
 
-/*    @GetMapping
-    public String sayHello(@RequestBody String id ){
-        return "The id in body was " + id ;
-    }*/
-
-
     @PostMapping
     public String saveBlogPost (@RequestBody BlogPost blogPost) {
         blogPostService.saveBlogPost(blogPost);
@@ -53,14 +47,17 @@ public class BlogPostController {
 
     @PutMapping("{id}")
     public String updateBlogPost (@RequestBody BlogPost newBlogPost, @PathVariable String id) {
+        Optional<BlogPost> blogPostData = blogPostService.findBlogPostById(id);
 
-        // TODO: Fix this to really update later...
-        if (blogPostService.findBlogPostById(id).isPresent()){
-            deleteBlogPost(id);
-            saveBlogPost(newBlogPost);
+        if (blogPostData.isPresent()){
+            BlogPost _blogPost = blogPostData.get();
+            _blogPost.setBlogTitle(newBlogPost.blogTitle);
+            _blogPost.setBlogText(newBlogPost.blogText);
+            _blogPost.setTimeCreated(newBlogPost.timeCreated);
+            blogPostService.saveBlogPost(_blogPost);
+
             return "Blog was updated";
         }
-        /*blogPostService.updateBlogPost(blogPost);*/
 
         return "Something went wrong";
     }
@@ -70,22 +67,4 @@ public class BlogPostController {
         System.out.println("deleting id: " + id);
         blogPostService.deleteBlogPostById(id);
     }
-
-
-
-
-/*
-    // this is an example of implementing ResponseEntity
-    @RequestMapping("test")
-    public ResponseEntity<String> handleRequest (RequestEntity<String> requestEntity) {
-        System.out.println("request body : " + requestEntity.getBody());
-        HttpHeaders headers = requestEntity.getHeaders();
-        System.out.println("request headers : " + headers);
-        System.out.println("request url: " + requestEntity.getUrl());
-
-        ResponseEntity<String> responseEntity = new ResponseEntity<>("my response body",
-                HttpStatus.OK);
-        return responseEntity;
-    }*/
-
 }
