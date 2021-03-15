@@ -6,7 +6,7 @@ import CurrentPostContext from '../context/CurrentPostContext';
 
 function BlogPostItem({blogPost}) {
     const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
-    const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
+    const {setCurrentPost} = useContext(CurrentPostContext)
 
     const deleteBlogPost = () => {
         let newPosts = blogPosts.filter((post => post.id !== blogPost.id)) 

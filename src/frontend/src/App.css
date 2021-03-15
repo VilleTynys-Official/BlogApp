@@ -2,6 +2,9 @@
   text-align: center;
   background-color:grey;
   padding: 20px;
+  margin: 40px;
+  border-radius: 10px;
+
 }
 
 .App-logo {
@@ -42,22 +45,22 @@
 
 .editview-container {
 }
-
-/* .mainview-container {
+/* 
+.mainview-container {
 
   width: 200px;
   display: flex;
   align-content: center;
   flex-direction: column;
 
-}
+} */
 
 .item-container {
-
+  border-radius: 10px;
   background-color: aquamarine;
 
 }
 
-.item-information-container{
+/* .item-information-container{
   justify-self: flex-start ;
 } */
