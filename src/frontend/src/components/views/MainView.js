@@ -11,12 +11,15 @@ const MainView = () => {
     console.log('Add defaul load for blogPosts here');
   }, [])
   
+
+  console.log('type of blogPosts', typeof(blogPosts));
+  
   return (
     <>
     <h1>Main view</h1>
       <div className='mainview-container'>
         <button>Add blog</button>
-          {blogPosts !== null || blogPosts.length ===0 ?
+          {blogPosts !==undefined ?
             (blogPosts.map(blogPost => {
               return  <BlogPostItem key={blogPost.id} blogPost={blogPost}></BlogPostItem>
             })):

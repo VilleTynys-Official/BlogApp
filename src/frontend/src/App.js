@@ -28,7 +28,10 @@ function App() {
   useEffect( () => {
     getBlogPosts()
       .then(data => setBlogPosts(data))
-      .catch(((err) => console.log("something went wrong")
+      .catch(((err) =>
+        console.log("something went wrong",
+        setBlogPosts([])
+        )
     ))
 
     return () => {
