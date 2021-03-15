@@ -1,37 +1,44 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import './App.css';
 import MainView from './components/views/MainView';
 import BlogPostContext from './context/BlogPostContext';
 import { Switch, Route } from 'react-router-dom';
 import EditView from './components/views/EditView';
 import Container from '@material-ui/core/Container'
+import { getByPlaceholderText } from '@testing-library/dom';
 
 
 function App() {
-  const [blogPosts, setBlogPosts] = useState([
-    {
-        "id": "604dd9b9625ba51295a29b5f",
-        "blogTitle": "testing",
-        "blogText": "testing testing!",
-        "timeCreated": "123423"
-    },
-    {
-        "id": "604e182040497b21259a115f",
-        "blogTitle": "testing",
-        "blogText": "This is updated",
-        "timeCreated": "123423"
-    },
-    {
-        "id": "604e33c8cb700a5a8a3e9ec1",
-        "blogTitle": "testing",
-        "blogText": "Tsädääää,",
-        "timeCreated": "22222"
+  const [blogPosts, setBlogPosts] = useState([]);
+
+  const getBlogPosts = async () => {
+    try {
+      const response = await axios.get('/blogposts');
+      const data = await response.data;
+      console.log(response);
+      return data;
+    } catch (error) {
+      console.error(error);
     }
-]);
+  }
+
+  console.log('blogPosts in app are::: ', blogPosts);
+  
+  useEffect( () => {
+    getBlogPosts()
+      .then(data => setBlogPosts(data))
+      .catch(((err) => console.log("something went wrong")
+    ))
+
+    return () => {
+      //place for cleanup functions
+    }
+  }, [])
+
  
   // Context provides the blogPost state to all child components
   // Switches render views according to current url
-
   return (
   
     <BlogPostContext.Provider
@@ -40,7 +47,7 @@ function App() {
       setBlogPosts
     }}
     >
-      <Container maxWidth="medium">
+      <Container maxWidth="md">
         <div className='App'>
           <Switch>
             <Route
