@@ -8,7 +8,6 @@ import EditView from './components/views/EditView';
 import Container from '@material-ui/core/Container'
 import { getByPlaceholderText } from '@testing-library/dom';
 
-
 function App() {
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -23,8 +22,6 @@ function App() {
     }
   }
 
-  console.log('blogPosts in app are::: ', blogPosts);
-  
   useEffect( () => {
     getBlogPosts()
       .then(data => setBlogPosts(data))
