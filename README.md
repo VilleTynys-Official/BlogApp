@@ -78,7 +78,11 @@ To run application from .jar file, make sure  MongoDB is running. Navigate to ./
 		
 Then navigate to localhost:8080
 
-## Bugs
+## Bugs and things to make better
 
-Sometimes the application won't load the first blog that is added (only after refresh).
+* Sometimes the application won't load the first blog that is added (only after refresh).
+* Refactoring of the api request ( frontend )
+* There should be more robust tests for the error handling.
+* Commenting could be better
+
 
