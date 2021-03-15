@@ -4,14 +4,17 @@ import {NavLink} from 'react-router-dom';
 import BlogPostItem from '../BlogPostItem';
 
 
+import CurrentPostContext from '../../context/CurrentPostContext';
+
 const MainView = () => {
   const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
+  const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
 
   useEffect(() => {
     console.log('Add defaul load for blogPosts here');
   }, [])
   
-  console.log('type of blogPosts', typeof(blogPosts));
+  console.log('currentPOst is ', currentPost);
   
   return (
     <>

@@ -2,9 +2,11 @@ import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import BlogPostContext from '../context/BlogPostContext';
+import CurrentPostContext from '../context/CurrentPostContext';
 
 function BlogPostItem({blogPost}) {
     const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
+    const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
 
     const deleteBlogPost = () => {
         let newPosts = blogPosts.filter((post => post.id !== blogPost.id)) 
@@ -15,6 +17,7 @@ function BlogPostItem({blogPost}) {
               )
           .catch((error) => console.log(error));
         }
+
     
     return (
         <div className='item-container'>
@@ -23,7 +26,7 @@ function BlogPostItem({blogPost}) {
                 <p>{blogPost.timeCreated}</p>
             </div>
             <NavLink to="/editview">
-                <button>View</button>
+                <button onClick={() =>setCurrentPost(blogPost)}>View</button>
             </NavLink>
                 <button onClick={deleteBlogPost}>Delete</button>
         </div>

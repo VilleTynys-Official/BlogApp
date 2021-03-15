@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import BlogPostContext from '../../context/BlogPostContext';
+import CurrentPostContext from '../../context/CurrentPostContext';
 import {NavLink} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
@@ -11,6 +12,7 @@ import '../../App.css';
 const EditView = () => {
   const history = useHistory();
   const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
+  const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
   const today = new Date()
   const date = today.toLocaleDateString("en-US").toString();
   const [newBlogPost, setNewBlogPost] = useState({
@@ -18,14 +20,16 @@ const EditView = () => {
       blogTitle: "",
       timeCreated: date
   });
-
   const {blogText, blogTitle} = newBlogPost;
   
-  const onChange= event => setNewBlogPost(
+  
+  console.log('currentPOst is ', currentPost);
+  const onChange = event => setNewBlogPost(
       {...newBlogPost,
         [event.target.name]: event.target.value})
-  
-    console.log('newBlogpost is', newBlogPost);
+
+
+
 
 
   const saveBlogPost = async () => {
@@ -35,19 +39,29 @@ const EditView = () => {
     }catch(error) {
         console.error(error);
       }
+      setCurrentPost(null);
     };
 
 
   const onSubmit = event => {
       event.preventDefault();
-
-        // sending the newBlogPost to backend
-       saveBlogPost()
-       .then(
+        // if current is empty send the newBlogPost to backend
+        // else send an update request
+        console.log('current post is ', currentPost);
+        
+       if(currentPost === null){
+        saveBlogPost()
+        .then(
         console.log("saved the blog" ),
+        setCurrentPost(null) // cleaning the currentPost
         )
         .catch((error) => console.log(error));
-      
+        setCurrentPost(null) // cleaning the currentPost
+       }else{
+           console.log('here I would only update');
+           setCurrentPost(null); // cleaning the currentPost
+       }
+
         history.push('/');
   }
     
@@ -72,7 +86,7 @@ const EditView = () => {
             />
             <br></br>
             <NavLink to="/">
-                <button className='form-button'>Cancel</button>
+                <button onClick={() => setCurrentPost(null)} className='form-button'>Cancel</button>
             </NavLink>
             <input
                 type='submit'

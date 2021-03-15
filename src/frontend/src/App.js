@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import MainView from './components/views/MainView';
 import BlogPostContext from './context/BlogPostContext';
+import CurrentPostContext from './context/CurrentPostContext';
 import { Switch, Route } from 'react-router-dom';
 import EditView from './components/views/EditView';
 import Container from '@material-ui/core/Container'
@@ -10,6 +11,7 @@ import { getByPlaceholderText } from '@testing-library/dom';
 
 function App() {
   const [blogPosts, setBlogPosts] = useState([]);
+  const [currentPost, setCurrentPost] = useState(null);
 
   const getBlogPosts = async () => {
     try {
@@ -41,32 +43,40 @@ function App() {
   // Switches render views according to current url
   return (
   
-    <BlogPostContext.Provider
-      value ={{
-      blogPosts,
-      setBlogPosts
-    }}
+    <CurrentPostContext.Provider
+      value={{
+        currentPost,
+        setCurrentPost
+      }}
+    
     >
-      <Container maxWidth="md">
-        <div className='App'>
-          <Switch>
-            <Route
-            exact
-            path='/'
-            render={()=> <MainView></MainView>}
-            ></Route>
-          </Switch>
+      <BlogPostContext.Provider
+        value ={{
+        blogPosts,
+        setBlogPosts
+      }}
+      >
+        <Container maxWidth="md">
+          <div className='App'>
+            <Switch>
+              <Route
+              exact
+              path='/'
+              render={()=> <MainView></MainView>}
+              ></Route>
+            </Switch>
 
-          <Switch>
-            <Route
-            exact
-            path='/editview'
-            render={()=> <EditView></EditView>}
-            ></Route>
-          </Switch>
-        </div>
-      </Container>
-    </BlogPostContext.Provider>
+            <Switch>
+              <Route
+              exact
+              path='/editview'
+              render={()=> <EditView></EditView>}
+              ></Route>
+            </Switch>
+          </div>
+        </Container>
+      </BlogPostContext.Provider>
+   </CurrentPostContext.Provider>
   );
 }
 
