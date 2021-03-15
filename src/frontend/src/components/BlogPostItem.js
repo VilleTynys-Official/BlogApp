@@ -1,9 +1,20 @@
 import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
+import axios from 'axios';
+import BlogPostContext from '../context/BlogPostContext';
 
 function BlogPostItem({blogPost}) {
+    const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
 
-    console.log('blogPost', blogPost.id);
+    const deleteBlogPost = () => {
+        let newPosts = blogPosts.filter((post => post.id !== blogPost.id)) 
+        axios.delete(`/blogposts/${blogPost.id}`)
+          .then(
+              console.log("updating blogPosts state to", newPosts ),
+              setBlogPosts(newPosts)
+              )
+          .catch((error) => console.log(error));
+        }
     
     return (
         <div className='item-container'>
@@ -13,8 +24,8 @@ function BlogPostItem({blogPost}) {
             </div>
             <NavLink to="/editview">
                 <button>View</button>
-                <button>Delete</button>
             </NavLink>
+                <button onClick={deleteBlogPost}>Delete</button>
         </div>
     )
 }

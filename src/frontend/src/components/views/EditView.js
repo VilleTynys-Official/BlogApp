@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import BlogPostContext from '../../context/BlogPostContext';
 import {NavLink} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 import '../../App.css';
 
 
@@ -10,26 +11,49 @@ import '../../App.css';
 const EditView = () => {
   const history = useHistory();
   const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
+  const today = new Date()
+  const date = today.toLocaleDateString("en-US").toString();
   const [newBlogPost, setNewBlogPost] = useState({
       blogText: "",
       blogTitle: "",
-      dateCreated: ""
+      timeCreated: date
   });
 
-  const {blogText, blogTitle, dateCreated} = newBlogPost;
+  const {blogText, blogTitle} = newBlogPost;
   
-  const onChange= event => setNewBlogPost({...newBlogPost, [event.target.name]: event.target.value})
+  const onChange= event => setNewBlogPost(
+      {...newBlogPost,
+        [event.target.name]: event.target.value})
   
+    console.log('newBlogpost is', newBlogPost);
+
+
+  const saveBlogPost = async () => {
+    try{
+        axios.post(`/blogposts/`, newBlogPost)
+        setBlogPosts(blogPosts);
+    }catch(error) {
+        console.error(error);
+      }
+    };
+
+
   const onSubmit = event => {
       event.preventDefault();
-      history.push('/');
-        console.log('send here the new blog to backend');
+
+        // sending the newBlogPost to backend
+       saveBlogPost()
+       .then(
+        console.log("saved the blog" ),
+        )
+        .catch((error) => console.log(error));
+      
+        history.push('/');
   }
     
   
   return (
     <div className='editview-container'>
-        <h1>Edit view</h1>
         <form onSubmit={onSubmit}>
             <h2>Title</h2>
             <input
