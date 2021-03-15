@@ -7,7 +7,6 @@ import CurrentPostContext from './context/CurrentPostContext';
 import { Switch, Route } from 'react-router-dom';
 import EditView from './components/views/EditView';
 import Container from '@material-ui/core/Container'
-import { getByPlaceholderText } from '@testing-library/dom';
 
 function App() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -24,20 +23,14 @@ function App() {
     }
   }
 
-  useEffect( () => {
-    getBlogPosts()
-      .then(data => setBlogPosts(data))
-      .catch(((err) =>
-        console.log("something went wrong",
-        setBlogPosts([])
-        )
-    ))
-
-    return () => {
-      //place for cleanup functions
-    }
-  }, [])
-
+        useEffect(() => {
+          getBlogPosts()
+            .then(data => setBlogPosts(data))
+            .catch(((err) =>
+              console.log("something went wrong"),
+              setBlogPosts([])
+              ))
+          }, [])
  
   // Context provides the blogPost state to all child components
   // Switches render views according to current url

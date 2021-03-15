@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import BlogPostContext from '../../context/BlogPostContext';
 import CurrentPostContext from '../../context/CurrentPostContext';
 import {NavLink} from 'react-router-dom';
@@ -18,54 +18,73 @@ const EditView = () => {
   const [newBlogPost, setNewBlogPost] = useState({
       blogText: "",
       blogTitle: "",
-      timeCreated: date
+      timeCreated: date,
+      id: ""
   });
   const {blogText, blogTitle} = newBlogPost;
+
+  useEffect(() => {
+    if(currentPost !== null) {
+      setNewBlogPost({...newBlogPost, blogText:currentPost.blogText, blogTitle:currentPost.blogTitle, id:currentPost.id})
+    }}, [])
+
+  console.log('new post is ', newBlogPost);
   
-  
-  console.log('currentPOst is ', currentPost);
+
   const onChange = event => setNewBlogPost(
       {...newBlogPost,
         [event.target.name]: event.target.value})
-
-
-
-
 
   const saveBlogPost = async () => {
     try{
         axios.post(`/blogposts/`, newBlogPost)
         setBlogPosts(blogPosts);
+
     }catch(error) {
         console.error(error);
       }
       setCurrentPost(null);
     };
 
+  const updateBlogPost = async () => {
+    try{
+      axios.put(`/blogposts/${newBlogPost.id}`, newBlogPost)
+  }catch(error) {
+      console.error(error);
+    }
+    setCurrentPost(null);
+  };
 
-  const onSubmit = event => {
-      event.preventDefault();
-        // if current is empty send the newBlogPost to backend
-        // else send an update request
-        console.log('current post is ', currentPost);
-        
-       if(currentPost === null){
-        saveBlogPost()
-        .then(
-        console.log("saved the blog" ),
-        setCurrentPost(null) // cleaning the currentPost
-        )
-        .catch((error) => console.log(error));
-        setCurrentPost(null) // cleaning the currentPost
-       }else{
-           console.log('here I would only update');
-           setCurrentPost(null); // cleaning the currentPost
-       }
 
-        history.push('/');
-  }
+
+    // if current is empty send the newBlogPost to backend
+    // else send an update request
+    const onSubmit = event => {
+        event.preventDefault();           
+        if(currentPost === null){
+            saveBlogPost()
+            .then(
+            console.log("saved the blog" ),
+            setCurrentPost(null) // cleaning the currentPost
+            )
+            .catch((error) => console.log(error));
+            setCurrentPost(null)
+        }else{
+            console.log('here I would only update');
+
+            updateBlogPost()
+            .then(
+              console.log("updated the blog" ),
+              setCurrentPost(null) // cleaning the currentPost
+              )
+              .catch((error) => console.log(error));
+              setCurrentPost(null)
+        }
+
+            history.push('/');
+    }
     
-  
+
   return (
     <div className='editview-container'>
         <form onSubmit={onSubmit}>
