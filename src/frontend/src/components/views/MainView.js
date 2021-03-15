@@ -15,9 +15,12 @@ const MainView = () => {
     <>
     <h1>Main view</h1>
       <div className='mainview-container'>
-          {blogPosts.map(blogPost => {
-            return  <BlogPostItem key={blogPost.id} blogPost={blogPost}></BlogPostItem>
-          })}     
+        <button>Add blog</button>
+          {blogPosts !== null || blogPosts.length ===0 ?
+            (blogPosts.map(blogPost => {
+              return  <BlogPostItem key={blogPost.id} blogPost={blogPost}></BlogPostItem>
+            })):
+            (<p>no blogs yet</p>)}
       </div>
     </>
   );
