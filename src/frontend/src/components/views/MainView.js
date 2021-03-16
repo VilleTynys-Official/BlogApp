@@ -16,7 +16,6 @@ const MainView = () => {
     try {
       const response = await axios.get('/blogposts');
       const data = await response.data;
-      console.log(response);
       return data;
     } catch (error) {
       console.error(error);
@@ -31,10 +30,7 @@ const MainView = () => {
             setBlogPosts([])
             ))
         }, [])
- 
-
-  console.log('currentPOst is ', currentPost);
-  
+          
   return (
     <>
     <h1>Main view</h1>
@@ -45,7 +41,7 @@ const MainView = () => {
           >Add new post</button>
         </NavLink>
 
-          {blogPosts !==undefined ?
+          {Array.isArray(blogPosts)  ?
             (blogPosts.map(blogPost => {
               return  <BlogPostItem
                           key={blogPost.id}

@@ -29,9 +29,9 @@ const EditView = () => {
       timeCreated: date,
       id: ""
   });
-  const {blogText, blogTitle} = newBlogPost;
+  const {blogText, blogTitle} = newBlogPost;  
 
-  useEffect(() => {
+  useEffect(() => {    
     if(currentPost !== null) {
       setNewBlogPost({...newBlogPost, blogText:currentPost.blogText, blogTitle:currentPost.blogTitle, id:currentPost.id})
     }}, [])  
@@ -53,9 +53,9 @@ const EditView = () => {
   const updateBlogPost = async () => {
     try{
       axios.put(`/blogposts/${newBlogPost.id}`, newBlogPost)
-  }catch(error) {
-      console.error(error);
-    }
+    }catch(error) {
+        console.error(error);
+      }
     setCurrentPost(null);
   };
 
@@ -63,31 +63,27 @@ const EditView = () => {
 
     // if current is empty, send the newBlogPost to backend
     // else send an update request
+
     const onSubmit = event => {
-        event.preventDefault();           
-        if(currentPost === null){
-            saveBlogPost()
-            .then(
-            console.log("saved the blog" ),
-            setCurrentPost(null) // cleaning the currentPost
-            )
+      event.preventDefault();           
+      if(currentPost === null){
+          saveBlogPost()
+          .then(
+          console.log("saved the blog" ),
+          setCurrentPost(null), // cleaning the currentPost
+          ).finally(() => history.push('/'))
+          .catch((error) => console.log(error));
+          setCurrentPost(null)
+      }else{
+          updateBlogPost()
+          .then(
+            console.log("updated the blog" ),
+            setCurrentPost(null), // cleaning the currentPost
+            ).finally(() => history.push('/'))
             .catch((error) => console.log(error));
             setCurrentPost(null)
-        }else{
-            console.log('here I would only update');
-
-            updateBlogPost()
-            .then(
-              console.log("updated the blog" ),
-              setCurrentPost(null) // cleaning the currentPost
-              )
-              .catch((error) => console.log(error));
-              setCurrentPost(null)
-        }
-
-            history.push('/');
-    }
-    
+      }
+  }
 
   return (
     <div className='editview-container'>
@@ -98,7 +94,6 @@ const EditView = () => {
             <TextField
                 className={classes.textbox}
                 id="filled-multiline-static"
-                multiline
                 variant="outlined"
                 rows={1}
                 name='blogTitle'

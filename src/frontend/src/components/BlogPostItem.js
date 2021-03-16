@@ -13,12 +13,12 @@ function BlogPostItem({blogPost}) {
         let newPosts = blogPosts.filter((post => post.id !== blogPost.id)) 
         axios.delete(`/blogposts/${blogPost.id}`)
           .then(
-              console.log("updating blogPosts state to", newPosts ),
-              setBlogPosts(newPosts)
+              setBlogPosts(newPosts),
+              console.log('deleted blog')
+              
               )
           .catch((error) => console.log(error));
         }
-
     
     return (
         <div className='item-container'>
