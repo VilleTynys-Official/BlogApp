@@ -3,15 +3,24 @@ Simple application for saving blog texts.
 
 ## Technologies
 
-    * Java Spring Boot with Spring Initializr
-    * MongoDB
-    * React
+* Backend
+	* Java Spring Boot with Spring Initializr
+	* MongoDB
+* Frontend
+	* React
+	* Material-ui for some styling
 
 ## Requirements
-    * MongoDB
-    * Java
+* MongoDB
+* Java
+* Maven (for build process)
 
 ## How to
+
+### Install Maven
+If you don't have it installed you can find instructions at:
+https://maven.apache.org/install.html
+
 
 ### Install and Launch MongoDB
 For the application to work you need MongoDB database.
