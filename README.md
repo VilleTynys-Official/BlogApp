@@ -63,12 +63,14 @@ To build a jar file
 ```
 ./mvnw clean package
 ```
-
+## Run from .jar
 To run application from .jar file, make sure  MongoDB is running. Navigate to ./target folder.
 
 	java -jar blogapp.jar
 		
 Then navigate to localhost:8080
+
+
 
 ## Bugs and things to make better
 
