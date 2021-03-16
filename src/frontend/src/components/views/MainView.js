@@ -5,12 +5,8 @@ import BlogPostItem from '../BlogPostItem';
 import axios from 'axios';
 import '../../App.css';
 
-
-import CurrentPostContext from '../../context/CurrentPostContext';
-
 const MainView = () => {
   const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
-  const {currentPost} = useContext(CurrentPostContext)
 
   const getBlogPosts = async () => {
     try {
@@ -31,9 +27,6 @@ const MainView = () => {
             setBlogPosts([])
             ))
         }, [])
- 
-
-
   
   return (
     <>

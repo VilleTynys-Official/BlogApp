@@ -23,14 +23,14 @@ function App() {
     }
   }
 
-        useEffect(() => {
-          getBlogPosts()
-            .then(data => setBlogPosts(data))
-            .catch(((err) =>
-              console.log("something went wrong"),
-              setBlogPosts([])
-              ))
-          }, [])
+  useEffect(() => {
+    getBlogPosts()
+      .then(data => setBlogPosts(data))
+      .catch(((err) =>
+        console.log("something went wrong"),
+        setBlogPosts([])
+        ))
+    }, [])
  
   // Context provides the blogPost state to all child components
   // Switches render views according to current url
@@ -41,7 +41,6 @@ function App() {
         currentPost,
         setCurrentPost
       }}
-    
     >
       <BlogPostContext.Provider
         value ={{

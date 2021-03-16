@@ -21,8 +21,8 @@ const useStyles = makeStyles(()=> ({
 const EditView = () => {
   const classes = useStyles();
   const history = useHistory();
-  const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
   const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
+  const {blogPosts, setBlogPosts} = useContext(BlogPostContext)
   const today = new Date()
   const date = today.toLocaleDateString("en-US").toString();
   const [newBlogPost, setNewBlogPost] = useState({
@@ -56,6 +56,8 @@ const EditView = () => {
   const updateBlogPost = async () => {
     try{
       axios.put(`/blogposts/${newBlogPost.id}`, newBlogPost)
+      let _blogPosts = blogPosts.filter((post) => post.id !== newBlogPost.id)
+      setBlogPosts({..._blogPosts, newBlogPost})
   }catch(error) {
       console.error(error);
     }

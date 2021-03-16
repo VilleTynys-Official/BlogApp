@@ -78,4 +78,11 @@ To run application from .jar file, make sure  MongoDB is running. Navigate to ./
 		
 Then navigate to localhost:8080
 
+## Bugs and things to make better
+
+* Sometimes the application won't update blog before manually refreshing.
+* Refactoring of the api request ( frontend )
+* There should be more robust tests for the error handling.
+* Commenting could be better
+
 
