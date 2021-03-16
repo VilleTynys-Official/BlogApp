@@ -40,14 +40,6 @@ all output going to: /usr/local/var/log/mongodb/mongo.log
 (Reference: https://spring.io/guides/gs/accessing-data-mongodb/ , 2021-3-15)
 
 
-
-## Run as .jar
-To run application from .jar file, make sure  MongoDB is running. Then navigate to ./target folder.
-
-	java -jar blogapp.jar
-		
-Then navigate to localhost:8080
-
 ## Build and run with Maven
 To build the application, make sure  MongoDB is running. Then navigate to folder ./src/frontend in terminal.
 and do
@@ -57,7 +49,7 @@ npm install
 npm run build
 ```
 This will install dependencies and build the frontend.
-Then Maven can be used to build one file of the whole application.
+Then Maven can be used to set build the application.
 For this navigate to the root folder (blogapp) and do the following
 
 ```
@@ -80,7 +72,7 @@ Then navigate to localhost:8080
 
 ## Bugs and things to make better
 
-* Refactoring of the api request ( frontend )
+* Refactoring of the api request ( frontend ) to services.
 * There should be more robust tests for the error handling.
 * Commenting could be better
 
