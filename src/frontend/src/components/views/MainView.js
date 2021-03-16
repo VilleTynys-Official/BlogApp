@@ -33,7 +33,7 @@ const MainView = () => {
         }, [])
  
 
-  console.log('currentPOst is ', currentPost);
+
   
   return (
     <>
@@ -45,7 +45,7 @@ const MainView = () => {
           >Add new post</button>
         </NavLink>
 
-          {blogPosts !==undefined ?
+          {Array.isArray(blogPosts) ?
             (blogPosts.map(blogPost => {
               return  <BlogPostItem
                           key={blogPost.id}

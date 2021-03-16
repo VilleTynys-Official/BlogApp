@@ -79,5 +79,3 @@ To run application from .jar file, make sure  MongoDB is running. Navigate to ./
 Then navigate to localhost:8080
 
 
-
-

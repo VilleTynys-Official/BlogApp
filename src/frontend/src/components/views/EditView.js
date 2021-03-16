@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import BlogPostContext from '../../context/BlogPostContext';
-import CurrentPostContext from '../../context/CurrentPostContext';
 import {NavLink} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import '../../App.css';
+import CurrentPostContext from '../../context/CurrentPostContext';
+import BlogPostContext from '../../context/BlogPostContext';
 
 // styling for material ui component used in TextFields
 const useStyles = makeStyles(()=> ({
@@ -45,7 +45,7 @@ const EditView = () => {
   const saveBlogPost = async () => {
     try{
         axios.post(`/blogposts/`, newBlogPost)
-        setBlogPosts(blogPosts);
+        setBlogPosts({...blogPosts, newBlogPost})
 
     }catch(error) {
         console.error(error);
@@ -101,7 +101,6 @@ const EditView = () => {
             <TextField
                 className={classes.textbox}
                 id="filled-multiline-static"
-                multiline
                 variant="outlined"
                 rows={1}
                 name='blogTitle'
