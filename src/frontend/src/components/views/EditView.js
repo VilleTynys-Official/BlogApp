@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import CurrentPostContext from '../../context/CurrentPostContext';
+import BlogPostContext from '../../context/BlogPostContext';
 import {NavLink} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
@@ -20,8 +21,9 @@ const useStyles = makeStyles(()=> ({
 const EditView = () => {
   const classes = useStyles();
   const history = useHistory();
-  const {currentPost, setCurrentPost} = useContext(CurrentPostContext)
-  const today = new Date()
+  const {currentPost, setCurrentPost} = useContext(CurrentPostContext);
+  const {blogPosts, setBlogPosts} = useContext(BlogPostContext);
+  const today = new Date();
   const date = today.toLocaleDateString("en-US").toString();
   const [newBlogPost, setNewBlogPost] = useState({
       blogText: "",
@@ -42,7 +44,9 @@ const EditView = () => {
 
   const saveBlogPost = async () => {
     try{
-        axios.post(`/blogposts/`, newBlogPost)
+        await axios.post(`/blogposts/`, newBlogPost)
+        let _blogPosts = blogPosts.filter((post) => post.id !== newBlogPost.id)
+        setBlogPosts({..._blogPosts, newBlogPost})
 
     }catch(error) {
         console.error(error);
@@ -52,7 +56,10 @@ const EditView = () => {
 
   const updateBlogPost = async () => {
     try{
-      axios.put(`/blogposts/${newBlogPost.id}`, newBlogPost)
+      await axios.put(`/blogposts/${newBlogPost.id}`, newBlogPost)
+      let _blogPosts = blogPosts.filter((post) => post.id !== newBlogPost.id)
+      setBlogPosts({..._blogPosts, newBlogPost})
+
     }catch(error) {
         console.error(error);
       }
