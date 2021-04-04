@@ -1,19 +1,19 @@
-# Project explanation
+# Frontend
 
-This is the frontend for a blogapp. Backend end is build with Springboot and the two will communicate with http requests. MongoDB will be used as the database for the app.
+This is the frontend for a blogapp.
+These instructions are only for development. **Read the README -file in the root folder** to see how to run the whole application so that it works correctly.
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+ 
 
-In the project directory, you can run:
+In the frontend directory, you can run:
 
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
